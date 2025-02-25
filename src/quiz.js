@@ -14,13 +14,14 @@ class Quiz {
     this.currentQuestionIndex++;
   }
   shuffleQuestions() {
-    const newShuffle = [];
-    const temporaryShuffle = this.questions;
-    for (let i = this.questions.length - 1; i >= 0; i--) {
-      const randomIndex = Math.floor(Math.random() * i);
-      newShuffle.push(temporaryShuffle[randomIndex]);
-      temporaryShuffle.splice(randomIndex, 1);
-    }
+    // const newShuffle = [];
+    // const temporaryShuffle = this.questions;
+    // for (let i = this.questions.length - 1; i >= 0; i--) {
+    //   const randomIndex = Math.floor(Math.random() * i);
+    //   newShuffle.push(temporaryShuffle[randomIndex]);
+    //   temporaryShuffle.splice(randomIndex, 1);
+    // }
+    this.questions.sort(() => 0.5 - Math.random());
   }
   checkAnswer(answer) {
     // console.log(this.questions[this.currentQuestionIndex]);
