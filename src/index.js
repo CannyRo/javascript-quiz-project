@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // End view elements
   const resultContainer = document.querySelector("#result");
 
+  // Restart button
+  const restartButton = document.querySelector('#restartButton');
 
   /************  SET VISIBILITY OF VIEWS  ************/
 
@@ -64,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  EVENT LISTENERS  ************/
 
   nextButton.addEventListener("click", nextButtonHandler);
-
+  restartButton.addEventListener("click", restartQuiz);
 
 
   /************  FUNCTIONS  ************/
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // showQuestion() - Displays the current question and its choices
   // nextButtonHandler() - Handles the click on the next button
   // showResults() - Displays the end view and the quiz results
-
+  // restartQuiz() - Reset the quiz
 
 
   function showQuestion() {
@@ -138,41 +140,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  
-  function nextButtonHandler () {
+  function nextButtonHandler() {
     let selectedAnswer; // A variable to store the selected answer value
 
-
-
     // YOUR CODE HERE:
+    // console.log('run nextButtonHandler()');
+    // 0. Get the current question from the quiz by calling the Quiz class method `getQuestion()`
+    const question = quiz.getQuestion();
     //
     // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
     selectedAnswer = document.querySelectorAll("input[name='choice']");
-    //console.log(selectedAnswer)
+    // console.log(selectedAnswer);
     // 2. Loop through all the choice elements and check which one is selected
       // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
       //  When a radio input gets selected the `.checked` property will be set to true.
       //  You can use check which choice was selected by checking if the `.checked` property is true.
-    selectedAnswer.forEach((answer) => {
+    selectedAnswer.forEach(answer => {
+      // console.log(answer);
+      // console.log('is selected ? ',answer.true);
+      // console.log('value of the answer', answer.value);
       if (answer.checked === true){
+        // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
+          // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
+          // Move to the next question by calling the quiz method `moveToNextQuestion()`.
+          // Show the next question by calling the function `showQuestion()`.
         if (answer.value === question.answer){
           quiz.checkAnswer(answer.value);
-          quiz.moveToNextQuestion();  
-          showQuestion()
+          
         }
-      
       }
-      
-
     });
-    
-    // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
-      // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
-      // Move to the next question by calling the quiz method `moveToNextQuestion()`.
-      // Show the next question by calling the function ``.
+    quiz.moveToNextQuestion();  
+    showQuestion();
   }  
-
-
 
 
   function showResults() {
@@ -186,7 +186,28 @@ document.addEventListener("DOMContentLoaded", () => {
     endView.style.display = "flex";
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
-    resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
   }
-  
+
+
+  // 0. Create a `restartQuiz()` function
+  function restartQuiz() {
+    // 1. add a “click” event listener to the reset quiz button and implement the event handler function
+    // LOOK AT THE TOP ... in the EVENTS LISTENER PART
+    // console.log('run restartQuiz()');
+
+    // Show the quiz view (div#quizView) and hide the end view (div#endView)
+    quizView.style.display = "block";
+    endView.style.display = "none";
+
+    // Reset the currentQuestionIndex AND the correctAnswers to 0
+    quiz.currentQuestionIndex = 0;
+    quiz.correctAnswers = 0;
+
+    // Shuffle the quiz questions
+    quiz.shuffleQuestions();
+
+    // Show first question
+    showQuestion();
+  }
 });

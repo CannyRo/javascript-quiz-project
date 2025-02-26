@@ -24,6 +24,7 @@ class Quiz {
     this.questions.sort(() => 0.5 - Math.random());
   }
   checkAnswer(answer) {
+    // console.log('run checkAnswer() method');
     // console.log(this.questions[this.currentQuestionIndex]);
     if (this.questions[this.currentQuestionIndex].answer === answer) {
       this.correctAnswers++;
@@ -41,8 +42,8 @@ class Quiz {
     }
   }
   averageDifficulty() {
-    console.log(this);
-    console.log(this.questions);
+    // console.log(this);
+    // console.log(this.questions);
     // const sumOfDifficulty = this.questions.reduce(
     //   (acc, currentQuestion) =>  {
     //     console.log("acc : ", acc);
