@@ -7,12 +7,12 @@ class Question {
     this.difficulty = difficulty;
   }
   shuffleChoices() {
-    const shuffleArray = [];
+    /*const shuffleArray = [];
     const temporaryArray = this.choices;
     for (let i = this.choices.length - 1; i >= 0; i--) {
       const randomIndex = Math.floor(Math.random() * i);
       shuffleArray.push(temporaryArray[randomIndex]);
-      temporaryArray.splice(randomIndex, 1);
+      temporaryArray.splice(randomIndex, 1);*/
+      this.choices.sort(() => 0.5 - Math.random());
     }
   }
-}
