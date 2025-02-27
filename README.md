@@ -27,6 +27,6 @@ The mini-project serves as a preparation for the module project, which you will 
 
 ## Authors
 
-Ronan CANNY - [@CannyRo](https://github.com/CannyRo)
+Ronan CANNY - [@CannyRo](https://github.com/CannyRo)  
 João Jacinto - [@joaommj](https://github.com/joaommj)
 
